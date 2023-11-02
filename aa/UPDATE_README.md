@@ -136,3 +136,186 @@ hp@Cyndie:~/.starkli-wallets$
 
 ```
 
+## 3.1 Create `keystore.json` for `custom`
+
+```bash
+hp@Cyndie:~/.starkli-wallets/custom$ starkli signer keystore new ./keystore.json
+Enter password: 
+Created new encrypted keystore file: /home/hp/.starkli-wallets/custom/keystore.json
+Public key: 0x06ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a
+hp@Cyndie:~/.starkli-wallets/custom$ 
+```
+
+## 3.2 Create `envars.sh` to store account contract's environment variables
+
+First store the signer's environment variables:
+
+```bash
+hp@Cyndie:~/.starkli-wallets/custom$ cat envars.sh 
+#!/bin/bash
+export STARKNET_KEYSTORE=~/.starkli-wallets/custom/keystore.json
+```
+
+Activate it:
+
+```bash
+hp@Cyndie:~/.starkli-wallets/custom$ source envars.sh 
+hp@Cyndie:~/.starkli-wallets/custom$ 
+```
+
+## 3.3 Create `account.json` for account contract
+
+We'll use a Starkli command normally reserved for an OZ account, even though the account contract is made from scratch.
+
+This is because our account contract validates signatures the same as OpenZeppelin
+
+If your account contract does it differently you won't use Starkli to deploy it.
+
+```bash
+hp@Cyndie:~/.starkli-wallets/custom$ starkli account oz init ./account.json
+Enter keystore password: 
+Created new account config file: /home/hp/.starkli-wallets/custom/account.json
+
+Once deployed, this account will be available at:
+    0x06f928bb6a3c0fbc946f3520fa145bd79a773c169ff2f45278165ed631a4ee2b
+
+Deploy this account by running:
+    starkli account deploy ./account.json
+hp@Cyndie:~/.starkli-wallets/custom$ 
+```
+
+Here's the generated `account.json`:
+
+```json
+{
+  "version": 1,
+  "variant": {
+    "type": "open_zeppelin",
+    "version": 1,
+    "public_key": "0x6ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a",
+    "legacy": false
+  },
+  "deployment": {
+    "status": "undeployed",
+    "class_hash": "0x4c6d6cf894f8bc96bb9c525e6853e5483177841f7388f74a46cfda6f028c755",
+    "salt": "0x489112ca696d3ae8fb1c86c62d4b6951698230654d7b56c08acb188230de36f"
+  }
+}
+```
+
+## 3.4 Calculate the correct  account contract's Class Hash
+
+I compiled the smart contract first:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa/src$ ls
+lib.cairo
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa/src$ scarb build
+   Compiling aa v0.1.0 (/home/hp/Desktop/account_abstraction__starknet/aa/Scarb.toml)
+    Finished release target(s) in 2 seconds
+```
+
+I then derived the Class Hash using Starkli:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli class-hash ./target/dev/aa_Account.sierra.json
+0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092
+```
+
+I modified the account contract's `account.json` to hold the generated class hash:
+
+```json
+{
+  "version": 1,
+  "variant": {
+    "type": "open_zeppelin",
+    "version": 1,
+    "public_key": "0x6ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a",
+    "legacy": false
+  },
+  "deployment": {
+    "status": "undeployed",
+    "class_hash": "0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092",
+    "salt": "0x489112ca696d3ae8fb1c86c62d4b6951698230654d7b56c08acb188230de36f"
+  }
+}
+```
+
+I added `account.json` to `envars.sh` and activated it:
+
+```sh
+#!/bin/bash
+export STARKNET_KEYSTORE=~/.starkli-wallets/custom/keystore.json
+export STARKNET_ACCOUNT=~/.starkli-wallets/custom/account.json
+
+```
+
+```bash
+hp@Cyndie:~/.starkli-wallets/custom$ source envars.sh 
+hp@Cyndie:~/.starkli-wallets/custom$ 
+```
+
+## 4. Configure the RPC
+
+The next step is declaring the account contract, and we'll do that through an RPC provider: Alchemy, Infura, 
+or a Starknet node;
+
+I got the API key from Alchemy, and added it to `envars.sh`, similar to `deployer` environment variable:
+
+```sh
+#!/bin/bash
+export STARKNET_KEYSTORE=~/.starkli-wallets/custom/keystore.json
+export STARKNET_ACCOUNT=~/.starkli-wallets/custom/account.json
+export STARKNET_RPC=https://starknet-goerli.g.alchemy.com/v2/4VUpCv...
+```
+
+## 5. Declaring the account contract
+
+I first activated the `deployer` environment in the `aa` directory:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ source ~/.starkli-wallets/deployer/envars.sh
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
+```
+
+I then declared the account contract:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli declare target/dev/aa_Account.sierra.json
+Enter keystore password: 
+Not declaring class as it's already declared. Class hash:
+0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
+```
+
+## 6. Deploying the account contract
+
+I reactivated the `custom` environment variables in the `aa` directory for account deployment:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ source ~/.starkli-wallets/custom/envars.sh
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
+```
+
+I then started the deployment procedure:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli account deploy ~/.starkli-wallets/custom/account.json
+Enter keystore password: 
+The estimated account deployment fee is 0.000004330000242480 ETH. However, to avoid failure, fund at least:
+    0.000006495000363720 ETH
+to the following address:
+    0x0337253e03ebf862bf1ae27059c3073abe73d0fec55605a8ca026b650c9e8901
+Press [ENTER] once you've funded the address.
+Account deployment transaction: 0x059db7b60bb414c1b166053e4ed960bee22f3dec8ec108c17473f0a9bcfcdbf2
+Waiting for transaction 0x059db7b60bb414c1b166053e4ed960bee22f3dec8ec108c17473f0a9bcfcdbf2 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Error: data did not match any variant of untagged enum JsonRpcResponse
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
+```
+
+
+
+
+
