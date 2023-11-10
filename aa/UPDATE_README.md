@@ -116,7 +116,7 @@ Here's my `envars.sh`:
 #!/bin/bash
 export STARKNET_KEYSTORE=~/.starkli-wallets/deployer/keystore.json
 export STARKNET_ACCOUNT=~/.starkli-wallets/deployer/account.json
-export STARKNET_RPC=https://starknet-goerli.g.alchemy.com/v2/4VUpCv...
+export STARKNET_RPC=https://starknet-goerli.infura.io/v3/a6e435c..
 
 ```
 
@@ -257,16 +257,16 @@ hp@Cyndie:~/.starkli-wallets/custom$
 
 ## 4. Configure the RPC
 
-The next step is declaring the account contract, and we'll do that through an RPC provider: Alchemy, Infura, 
+The next step is declaring the account contract, and we'll do that through an RPC provider: Infura, 
 or a Starknet node;
 
-I got the API key from Alchemy, and added it to `envars.sh`, similar to `deployer` environment variable:
+I got the API key from Infura, and added it to `envars.sh`, similar to `deployer` environment variable:
 
 ```sh
 #!/bin/bash
 export STARKNET_KEYSTORE=~/.starkli-wallets/custom/keystore.json
 export STARKNET_ACCOUNT=~/.starkli-wallets/custom/account.json
-export STARKNET_RPC=https://starknet-goerli.g.alchemy.com/v2/4VUpCv...
+export STARKNET_RPC=https://starknet-goerli.infura.io/v3/a6e435....
 ```
 
 ## 5. Declaring the account contract
@@ -302,20 +302,41 @@ I then started the deployment procedure:
 ```bash
 hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli account deploy ~/.starkli-wallets/custom/account.json
 Enter keystore password: 
-The estimated account deployment fee is 0.000004330000242480 ETH. However, to avoid failure, fund at least:
-    0.000006495000363720 ETH
+The estimated account deployment fee is 0.000004330000038970 ETH. However, to avoid failure, fund at least:
+    0.000006495000058455 ETH
 to the following address:
-    0x0337253e03ebf862bf1ae27059c3073abe73d0fec55605a8ca026b650c9e8901
+    0x074b028953413ce9a3787f2d45e9e1459d0acbcc5e6499e7cb3470eb4bb83a79
 Press [ENTER] once you've funded the address.
-Account deployment transaction: 0x059db7b60bb414c1b166053e4ed960bee22f3dec8ec108c17473f0a9bcfcdbf2
-Waiting for transaction 0x059db7b60bb414c1b166053e4ed960bee22f3dec8ec108c17473f0a9bcfcdbf2 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Account deployment transaction: 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008
+Waiting for transaction 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Transaction 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008 confirmed
+```
+
+## N.B
+
+I used to get this error while deploying my contract using Alchemy as my RPC endpoint:
+
+```bash
+hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli account deploy ~/.starkli-wallets/custom/account.json
+Enter keystore password: 
+The estimated account deployment fee is 0.000004330000051960 ETH. However, to avoid failure, fund at least:
+    0.000006495000077940 ETH
+to the following address:
+    0x0062f981ae9d6babd3f6176fbb7fc9e6f7b424e48fcd9b77781ba0076193ec2e
+Press [ENTER] once you've funded the address.
+Account deployment transaction: 0x058534bd8361061792a8fc9d4c0040e876966abb19991560f875243ac9b7c839
+Waiting for transaction 0x058534bd8361061792a8fc9d4c0040e876966abb19991560f875243ac9b7c839 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
 Transaction not confirmed yet...
 Transaction not confirmed yet...
 Error: data did not match any variant of untagged enum JsonRpcResponse
-hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
+
 ```
 
+Apparently the current Starkli version (v0.1.19) supports only JSON-RPC spec version (0.4.0), and Alchemy is operating on (0.3.0)
 
+https://github.com/xJonathanLEI/starkli/issues/44#issuecomment-1803358124
 
 
 
