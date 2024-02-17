@@ -47,12 +47,7 @@ hp@Cyndie:~/.starkli-wallets$
 ```
 
 I then created a new smart wallet, funded it, then copied its private key.
-Wallet has no resources, so I'll just expose the private key:
-NOTE: Don't use a smart wallet having real funds!!!
 
-```bash
-0x039d3113b3fe945187b44eda2e511b27e53cc011da3118d1ad601cc3f250648e
-```
 I used this key to generate `keystore.json`:
 
 ## 2.1 Generating `keystore` file in `deployer`
@@ -62,7 +57,7 @@ hp@Cyndie:~/.starkli-wallets/deployer$ starkli signer keystore from-key ./keysto
 Enter private key: 
 Enter password: 
 Created new encrypted keystore file: /home/hp/.starkli-wallets/deployer/keystore.json
-Public key: 0x079947340c32624fb60a83c8ff8912cd1ec00e6cd10c6ab228e17b4b4a869fa3
+Public key: 0x079...
 hp@Cyndie:~/.starkli-wallets/deployer$ 
 ```
 
@@ -89,21 +84,21 @@ Here's how the generated `account.json` file looks like:
   "variant": {
     "type": "braavos",
     "version": 1,
-    "implementation": "0x5dec330eebf36c8672b60db4a718d44762d3ae6d1333e553197acb47ee5a062",
+    "implementation": "0x5...",
     "multisig": {
       "status": "off"
     },
     "signers": [
       {
         "type": "stark",
-        "public_key": "0x79947340c32624fb60a83c8ff8912cd1ec00e6cd10c6ab228e17b4b4a869fa3"
+        "public_key": "0x799..."
       }
     ]
   },
   "deployment": {
     "status": "deployed",
-    "class_hash": "0x3131fa018d520a037686ce3efddeab8f28895662f019ca3ca18a626650f7d1e",
-    "address": "0x1a8cfb468cd4bda3a71e05c517eb1e217467d9f11babc7637a8f0dbe92276f0"
+    "class_hash": "0x31...",
+    "address": "0x1a8c..."
   }
 }
 ```
@@ -142,7 +137,7 @@ hp@Cyndie:~/.starkli-wallets$
 hp@Cyndie:~/.starkli-wallets/custom$ starkli signer keystore new ./keystore.json
 Enter password: 
 Created new encrypted keystore file: /home/hp/.starkli-wallets/custom/keystore.json
-Public key: 0x06ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a
+Public key: 0x6...
 hp@Cyndie:~/.starkli-wallets/custom$ 
 ```
 
@@ -177,7 +172,7 @@ Enter keystore password:
 Created new account config file: /home/hp/.starkli-wallets/custom/account.json
 
 Once deployed, this account will be available at:
-    0x06f928bb6a3c0fbc946f3520fa145bd79a773c169ff2f45278165ed631a4ee2b
+    0x06f..
 
 Deploy this account by running:
     starkli account deploy ./account.json
@@ -192,13 +187,13 @@ Here's the generated `account.json`:
   "variant": {
     "type": "open_zeppelin",
     "version": 1,
-    "public_key": "0x6ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a",
+    "public_key": "0x6ee..",
     "legacy": false
   },
   "deployment": {
     "status": "undeployed",
-    "class_hash": "0x4c6d6cf894f8bc96bb9c525e6853e5483177841f7388f74a46cfda6f028c755",
-    "salt": "0x489112ca696d3ae8fb1c86c62d4b6951698230654d7b56c08acb188230de36f"
+    "class_hash": "0x4c6..",
+    "salt": "0x48911..."
   }
 }
 ```
@@ -230,13 +225,13 @@ I modified the account contract's `account.json` to hold the generated class has
   "variant": {
     "type": "open_zeppelin",
     "version": 1,
-    "public_key": "0x6ee178699694470d2e381da5dfa79e385240f226767ce07f3e1837a8dd0449a",
+    "public_key": "0x6ee...",
     "legacy": false
   },
   "deployment": {
     "status": "undeployed",
-    "class_hash": "0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092",
-    "salt": "0x489112ca696d3ae8fb1c86c62d4b6951698230654d7b56c08acb188230de36f"
+    "class_hash": "0x034...",
+    "salt": "0x4891..."
   }
 }
 ```
@@ -305,13 +300,13 @@ Enter keystore password:
 The estimated account deployment fee is 0.000004330000038970 ETH. However, to avoid failure, fund at least:
     0.000006495000058455 ETH
 to the following address:
-    0x074b028953413ce9a3787f2d45e9e1459d0acbcc5e6499e7cb3470eb4bb83a79
+    0x07..
 Press [ENTER] once you've funded the address.
-Account deployment transaction: 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008
-Waiting for transaction 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Account deployment transaction: 0x0434...
+Waiting for transaction 0x0434... to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
 Transaction not confirmed yet...
 Transaction not confirmed yet...
-Transaction 0x04348a81c550192ee75dad0183d432b0d18ac497dd8188d145979282fb649008 confirmed
+Transaction 0x0434... confirmed
 ```
 
 ## N.B
@@ -324,10 +319,10 @@ Enter keystore password:
 The estimated account deployment fee is 0.000004330000051960 ETH. However, to avoid failure, fund at least:
     0.000006495000077940 ETH
 to the following address:
-    0x0062f981ae9d6babd3f6176fbb7fc9e6f7b424e48fcd9b77781ba0076193ec2e
+    0x00...
 Press [ENTER] once you've funded the address.
-Account deployment transaction: 0x058534bd8361061792a8fc9d4c0040e876966abb19991560f875243ac9b7c839
-Waiting for transaction 0x058534bd8361061792a8fc9d4c0040e876966abb19991560f875243ac9b7c839 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Account deployment transaction: 0x05...
+Waiting for transaction 0x058... to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
 Transaction not confirmed yet...
 Transaction not confirmed yet...
 Error: data did not match any variant of untagged enum JsonRpcResponse
