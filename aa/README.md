@@ -131,12 +131,12 @@ hp@Cyndie:~/.starkli-wallets/deployer$ cat account.json
   "variant": {
   "type": "open_zeppelin",
   "version": 1,
-    "public_key": "0x519c51e245a4a63fd7773f8658c12277860e77cd30a8727fc2a22266c9e1c4c"
+    "public_key": "0x5..."
   },
   "deployment": {
     "status": "deployed",
-    "class_hash": "0x03131fa018d520a037686ce3efddeab8f28895662f019ca3ca18a626650f7d1e",
-    "address": "0x00901aa3302c920e57f527dc767c4c46131cd90afc49e303580d2a8ea5b83f1c"
+    "class_hash": "0x03131....",
+    "address": "0x00...."
   }
 }
 
@@ -212,7 +212,7 @@ file with a password.
 hp@Cyndie:~/.starkli-wallets$ starkli signer keystore new ./custom/keystore.json
 Enter password: 
 Created new encrypted keystore file: /home/hp/.starkli-wallets/custom/keystore.json
-Public key: 0x01445385497364c73fabf223c55b7b323586b61c42942c99715d842c6f0a781c
+Public key: 0x01...
 
 ```
 The command `starkli signer keystore new ./custom/keystore.json` asks you to input a password to encrypt the file,
@@ -273,13 +273,13 @@ hp@Cyndie:~/.starkli-wallets/custom$ cat account.json
   "variant": {
     "type": "open_zeppelin",
     "version": 1,
-    "public_key": "0x1445385497364c73fabf223c55b7b323586b61c42942c99715d842c6f0a781c",
+    "public_key": "0x14...",
     "legacy": false
   },
   "deployment": {
     "status": "undeployed",
-    "class_hash": "0x4c6d6cf894f8bc96bb9c525e6853e5483177841f7388f74a46cfda6f028c755",
-    "salt": "0x36cb2427f99a75b7d4c4ceeca1e412cd94b1fc396e09fec8adca14f8dc33374"
+    "class_hash": "0x4c....",
+    "salt": "0x36c..."
   }
 }
 
@@ -317,13 +317,13 @@ hp@Cyndie:~/.starkli-wallets/custom$ cat account.json
   "variant": {
     "type": "open_zeppelin",
     "version": 1,
-    "public_key": "0x1445385497364c73fabf223c55b7b323586b61c42942c99715d842c6f0a781c",
+    "public_key": "0x14....",
     "legacy": false
   },
   "deployment": {
     "status": "undeployed",
-    "class_hash": "0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092",
-    "salt": "0x36cb2427f99a75b7d4c4ceeca1e412cd94b1fc396e09fec8adca14f8dc33374"
+    "class_hash": "0x0348..",
+    "salt": "0x3.."
   }
 }
 
