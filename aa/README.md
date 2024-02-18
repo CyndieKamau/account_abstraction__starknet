@@ -85,7 +85,7 @@ hp@Cyndie:~/.starkli-wallets/deployer$ starkli signer keystore from-key ./keysto
 Enter private key: 
 Enter password: 
 Created new encrypted keystore file: /home/hp/.starkli-wallets/deployer/keystore.json
-Public key: 0x0519c51e245a4a63fd7773f8658c12277860e77cd30a8727fc2a22266c9e1c4c
+Public key: 0x0519...
 
 ```
 The `private key` is the one copied from Braavos.
@@ -251,7 +251,7 @@ Enter keystore password:
 Created new account config file: /home/hp/.starkli-wallets/custom/account.json
 
 Once deployed, this account will be available at:
-    0x020746ecae88e0eea0da05770eddee1165515180acb35efeb27d1daad0aed418
+    0x02...
 
 Deploy this account by running:
     starkli account deploy ./account.json
@@ -302,7 +302,7 @@ We'll derive the class hash of our account contract using Starkli:
 
 ```bash
 hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ starkli class-hash ./target/dev/aa_Account.sierra.json 
-0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092
+0x03480....
 
 ```
 
@@ -393,9 +393,9 @@ Network detected: goerli-1. Using the default compiler version for this network:
 Declaring Cairo 1 class: 0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092
 Compiling Sierra class to CASM with compiler version 2.1.0...
 CASM class hash: 0x05f58755772dba81b3ff0abda60d1079da08a5b1211c115117a6d59faef60947
-Contract declaration transaction: 0x0699fd6d80d7733c7ceba4b3516eba0c6200f6155d3c565fe95bc9d1ee86afcc
+Contract declaration transaction: 0x06....
 Class hash declared:
-0x03480253c19b447b1d7e7a6422acf80b73866522de03126fa55796a712d9f092
+0x034....
 hp@Cyndie:~/Desktop/account_abstraction__starknet/aa$ 
 
 ```
